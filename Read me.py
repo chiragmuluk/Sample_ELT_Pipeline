@@ -65,6 +65,11 @@
 # MAGIC 6. **Expanding Raw Data Processing Script for Date Range Loading**
 # MAGIC    - Enhance data loading scripts to support filtering and loading data within a specified date range (if Auto Loader is not implemented).
 # MAGIC
+# MAGIC 7. **Implementing CI/CD for Automated Deployment**
+# MAGIC    - Set up CI/CD pipelines (e.g., using Databricks Asset Bundles, GitHub Actions, or Jenkins) to automate validation, testing, and deployment of code and notebooks across multiple environments (dev, test, prod), reducing manual intervention and ensuring consistent releases.
+# MAGIC
+# MAGIC **Note:** The current code and analysis are developed specifically for the UK region.
+# MAGIC
 
 # COMMAND ----------
 

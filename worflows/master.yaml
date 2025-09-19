@@ -1,0 +1,58 @@
+resources:
+  jobs:
+    master:
+      name: master
+      tasks:
+        - task_key: read_customers_csv
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/raw/raw_customers
+            source: WORKSPACE
+        - task_key: cleaned_customers
+          depends_on:
+            - task_key: read_customers_csv
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/enriched/enh_customers
+            source: WORKSPACE
+        - task_key: dim_customer
+          depends_on:
+            - task_key: cleaned_customers
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/curated/cur_customers
+            source: WORKSPACE
+        - task_key: read_orders_csv
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/raw/raw_orders
+            source: WORKSPACE
+        - task_key: read_products_csv
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/raw/raw_products
+            source: WORKSPACE
+        - task_key: cleaned_products
+          depends_on:
+            - task_key: read_products_csv
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/enriched/enh_products
+            source: WORKSPACE
+        - task_key: cleaned_orders
+          depends_on:
+            - task_key: read_orders_csv
+            - task_key: cleaned_customers
+            - task_key: cleaned_products
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/enriched/enh_orders
+            source: WORKSPACE
+        - task_key: dim_products
+          depends_on:
+            - task_key: cleaned_products
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/enriched/enh_products
+            source: WORKSPACE
+        - task_key: fact_sales_transactions
+          depends_on:
+            - task_key: cleaned_orders
+          notebook_task:
+            notebook_path: /Repos/chirag.muluk@gmail.com/Insulet/curated/cur_sales_transactions
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
